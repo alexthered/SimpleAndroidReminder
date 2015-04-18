@@ -92,7 +92,7 @@ public class AddToDoActivity extends Activity {
 				// TODO - Indicate result and finish
                 Log.i(TAG, "Enter cancelButton.OnClick()");
 
-                //finsih the activity
+                //finish the activity
                 finish();
                 
                 

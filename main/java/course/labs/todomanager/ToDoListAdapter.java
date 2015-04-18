@@ -91,9 +91,9 @@ public class ToDoListAdapter extends BaseAdapter {
 
 		// TODO - Inflate the View for this ToDoItem
 		// from todo_item.xml
-		RelativeLayout itemLayout = null;
+		//RelativeLayout itemLayout = null;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        itemLayout = (RelativeLayout) inflater.inflate(R.layout.todo_item, null);
+        final RelativeLayout itemLayout = (RelativeLayout) inflater.inflate(R.layout.todo_item, null);
 
 
 		// Fill in specific ToDoItem data
@@ -125,12 +125,15 @@ public class ToDoListAdapter extends BaseAdapter {
                     toDoItem.setStatus(Status.DONE);
 
                     //if the status of item is checked, remove it from the list
-                    mItems.remove(toDoItem);
-                    notifyDataSetChanged();
+                    //mItems.remove(toDoItem);
+                    //notifyDataSetChanged();
 
                 } else {
                     toDoItem.setStatus(Status.NOTDONE);
                 }
+
+                //update the color of the view according to the item's status
+                itemLayout.setBackgroundColor(toDoItem.getColor());
 
             }
         });
@@ -146,6 +149,10 @@ public class ToDoListAdapter extends BaseAdapter {
 		// time String
         final TextView dateView = (TextView) itemLayout.findViewById(R.id.dateView);
         dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
+
+
+        //update the color of the view according to the item's status
+        itemLayout.setBackgroundColor(toDoItem.getColor());
 
 		// Return the View you just created
 		return itemLayout;

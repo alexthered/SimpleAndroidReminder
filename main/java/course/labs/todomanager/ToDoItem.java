@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import android.graphics.Color;
 
 import android.content.Intent;
 
@@ -55,6 +56,14 @@ public class ToDoItem {
 		}
 	}
 
+
+    public int getColor(){
+        if (mStatus == Status.DONE){
+            return Color.GREEN;
+        } else
+            return Color.BLACK;
+    }
+
 	public String getTitle() {
 		return mTitle;
 	}
@@ -87,7 +96,7 @@ public class ToDoItem {
 		mDate = date;
 	}
 
-	// Take a set of String data values and 
+	// Take a set of String data values and
 	// package them for transport in an Intent
 
 	public static void packageIntent(Intent intent, String title,
@@ -97,7 +106,7 @@ public class ToDoItem {
 		intent.putExtra(ToDoItem.PRIORITY, priority.toString());
 		intent.putExtra(ToDoItem.STATUS, status.toString());
 		intent.putExtra(ToDoItem.DATE, date);
-	
+
 	}
 
 	public String toString() {
