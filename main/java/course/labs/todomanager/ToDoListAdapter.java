@@ -3,11 +3,15 @@ package course.labs.todomanager;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,7 +30,6 @@ public class ToDoListAdapter extends BaseAdapter {
 	public ToDoListAdapter(Context context) {
 
 		mContext = context;
-
 	}
 
 	// Add a ToDoItem to the adapter
@@ -38,6 +41,14 @@ public class ToDoListAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 
 	}
+
+    //remove an element at a specific position
+    public void remove(int pos){
+        Object this_item = getItem(pos);
+
+        mItems.remove(this_item);
+        notifyDataSetChanged();
+    }
 
 	// Clears the list adapter of all items.
 
@@ -123,11 +134,6 @@ public class ToDoListAdapter extends BaseAdapter {
                 // is called when the user toggles the status checkbox
                 if(statusView.isChecked()){
                     toDoItem.setStatus(Status.DONE);
-
-                    //if the status of item is checked, remove it from the list
-                    //mItems.remove(toDoItem);
-                    //notifyDataSetChanged();
-
                 } else {
                     toDoItem.setStatus(Status.NOTDONE);
                 }
@@ -149,6 +155,18 @@ public class ToDoListAdapter extends BaseAdapter {
 		// time String
         final TextView dateView = (TextView) itemLayout.findViewById(R.id.dateView);
         dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
+
+        itemLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.i(TAG, "Enter itemLayout.onLongClick()");
+
+                mItems.remove(toDoItem);
+                notifyDataSetChanged();
+
+                return true;
+            }
+        });
 
 
         //update the color of the view according to the item's status

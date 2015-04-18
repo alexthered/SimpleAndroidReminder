@@ -20,9 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
+
 
 public class ToDoManagerActivity extends ListActivity {
 
@@ -56,10 +58,8 @@ public class ToDoManagerActivity extends ListActivity {
 		}
 		// TODO - Add footerView to ListView
 
-       getListView().addFooterView(footerView);
-		
-        
-        
+        getListView().addFooterView(footerView);
+
 		// TODO - Attach Listener to FooterView
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
