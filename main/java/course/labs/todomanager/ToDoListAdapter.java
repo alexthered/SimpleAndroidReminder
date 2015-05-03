@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Status;
+import course.labs.todomanager.ToDoManagerActivity;
+import android.view.Window;
 
 public class ToDoListAdapter extends BaseAdapter {
 
@@ -161,8 +164,30 @@ public class ToDoListAdapter extends BaseAdapter {
             public boolean onLongClick(View view) {
                 Log.i(TAG, "Enter itemLayout.onLongClick()");
 
-                mItems.remove(toDoItem);
-                notifyDataSetChanged();
+                //show a dialog
+                final Dialog dialog = new Dialog(mContext);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //remove title bar
+                dialog.setContentView(R.layout.longclickdialog);
+                dialog.setCancelable(true);
+
+                Button deleteButton = (Button) dialog.findViewById(R.id.deleteButton);
+                deleteButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "Delete buton is clicked!");
+
+                        //remove item
+                        mItems.remove(toDoItem);
+                        notifyDataSetChanged();
+
+                        //dismiss the dialog
+                        dialog.dismiss();
+
+                    }
+                });
+
+                //show the dialog
+                dialog.show();
 
                 return true;
             }
